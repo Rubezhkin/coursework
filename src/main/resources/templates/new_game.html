@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>New Game</title>
+</head>
+<body>
+<h1>Create New Game</h1>
+<form th:action="@{/games}" th:object="${game}" method="post">
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" th:field="*{name}"><br>
+    <label for="developer">Developer:</label><br>
+    <select id="developer" th:field="*{developer.id}">
+		<option th:each="developer : ${developers}" th:value="${developer.id}" th:text="${developer.name}"></option>
+	</select><br>
+	<label for="developer">Developer:</label><br>
+	<select id="genre" th:field="*{genre.id}">
+		<option th:each="genre : ${genres}" th:value="${genre.id}" th:text="${genre.name}"></option>
+	</select><br>
+    <input type="submit" value="Submit">
+</form>
+</body>
+</html>

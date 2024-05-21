@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Developer</title>
+</head>
+<body>
+<h1>Edit Developer</h1>
+<form th:action="@{/developers/{id}(id=${developer.id})}" th:object="${developer}" method="post">
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" th:field="*{name}"><br>
+    <input type="submit" value="Submit">
+</form>
+</body>
+</html>

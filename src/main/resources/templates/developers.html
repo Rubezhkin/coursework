@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Developers</title>
+</head>
+<body>
+<h1>Developers</h1>
+<a href="/developers/new">Create new developer</a>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="developer : ${developers}">
+        <td th:text="${developer.name}"></td>
+        <td>
+            <a th:href="@{/developers/{id}/edit(id=${developer.id})}">Edit</a>
+            <a th:href="@{/developers/{id}/delete(id=${developer.id})}">Delete</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
