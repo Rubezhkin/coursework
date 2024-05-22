@@ -5,9 +5,9 @@
 </head>
 <body>
 <h1>Create New Game</h1>
-<form th:action="@{/games}" th:object="${game}" method="post">
+<form th:action="@{/games}" th:object="${game}" method="post" enctype="multipart/form-data">
     <label for="name">Name:</label><br>
-    <input type="text" id="name" th:field="*{name}"><br>
+    <input type="text" id="name" th:field="*{name}" required><br>
     <label for="developer">Developer:</label><br>
     <select id="developer" th:field="*{developer.id}">
 		<option th:each="developer : ${developers}" th:value="${developer.id}" th:text="${developer.name}"></option>
@@ -17,7 +17,9 @@
 		<option th:each="genre : ${genres}" th:value="${genre.id}" th:text="${genre.name}"></option>
 	</select><br>
 	<label for="description">Description:</label><br>
-    <input type="text" id="description" th:field="*{description}"><br>
+    <input type="text" id="description" th:field="*{description}" required><br>
+	<label for="file">File:</label><br>
+    <input type="file" id="file" name="file" required><br>
     <input type="submit" value="Submit">
 </form>
 </body>

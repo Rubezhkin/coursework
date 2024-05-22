@@ -7,7 +7,7 @@
 <h1>Create New Developer</h1>
 <form th:action="@{/developers}" th:object="${developer}" method="post">
     <label for="name">Name:</label><br>
-    <input type="text" id="name" th:field="*{name}"><br>
+    <input type="text" id="name" th:field="*{name}" required><br>
     <input type="submit" value="Submit">
 </form>
 </body>
