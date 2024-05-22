@@ -46,6 +46,14 @@ public class GameController {
 		model.addAttribute("genres", genreRepository.findAll());
 		return "games";
 	}
+
+	@GetMapping("/games/{id}")
+	public String getMethodName(@PathVariable Long id, Model model) {
+		Game game = gameRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid Game id: " + id));
+		model.addAttribute("game", game);
+		return "game";
+	}
+	
 	
 	@GetMapping("/games/new")
 	public String newGame(Model model) {

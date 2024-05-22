@@ -26,4 +26,6 @@ public class Game {
 	@ManyToOne
 	@JoinColumn(name = "genre_id")
 	private Genre genre;
+
+	private String description;
 }

@@ -25,7 +25,7 @@
         <th>Actions</th>
     </tr>
     <tr th:each="game : ${games}">
-        <td th:text="${game.name}"></td>
+        <td><a th:href="@{/games/{id}(id=${game.id})}"th:text="${game.name}"></a></td>
         <td th:text="${game.developer.name}"></td>
         <td th:text="${game.genre.name}"></td>
         <td>
