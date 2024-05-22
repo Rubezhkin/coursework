@@ -6,6 +6,17 @@
 <body>
 <h1>Games</h1>
 <a href="/games/new">Create new game</a>
+<form th:action="@{/games}" method="get">
+    <select name="developerId">
+        <option value="">All Developers</option>
+        <option th:each="developer : ${developers}" th:value="${developer.id}" th:text="${developer.name}"></option>
+    </select>
+    <select name="genreId">
+        <option value="">All Genres</option>
+        <option th:each="genre : ${genres}" th:value="${genre.id}" th:text="${genre.name}"></option>
+    </select>
+    <input type="submit" value="Search">
+</form>
 <table>
     <tr>
         <th>Name</th>

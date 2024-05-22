@@ -1,5 +1,7 @@
 package course.work.project.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import course.work.project.entity.Developer;
 import course.work.project.entity.Game;
@@ -27,8 +30,20 @@ public class GameController {
 	private DeveloperRepository developerRepository;
 	
 	@GetMapping("/games")
-	public String getGames(Model model) {
-		model.addAttribute("games", gameRepository.findAll());
+	public String getGames(@RequestParam(required = false) Long developerId, @RequestParam(required = false) Long genreId, Model model) {
+		Iterable<Game> games = new ArrayList<>();
+    if (developerId != null && genreId != null) {
+        games = gameRepository.findByDeveloperIdAndGenreId(developerId, genreId);
+    } else if (developerId != null) {
+        games = gameRepository.findByDeveloperId(developerId);
+    } else if (genreId != null) {
+        games = gameRepository.findByGenreId(genreId);
+    } else {
+        games = gameRepository.findAll();
+    }
+		model.addAttribute("games", games);
+		model.addAttribute("developers", developerRepository.findAll());
+		model.addAttribute("genres", genreRepository.findAll());
 		return "games";
 	}
 	
@@ -42,7 +57,7 @@ public class GameController {
 	
 	@PostMapping("/games")
 	public String createGame(@ModelAttribute Game game) {
-		 Developer developer = developerRepository.findById(game.getDeveloper().getId())
+	Developer developer = developerRepository.findById(game.getDeveloper().getId())
         .orElseThrow(() -> new IllegalArgumentException("Invalid developer Id:" + game.getDeveloper().getId()));
     Genre genre = genreRepository.findById(game.getGenre().getId())
         .orElseThrow(() -> new IllegalArgumentException("Invalid genre Id:" + game.getGenre().getId()));
