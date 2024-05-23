@@ -17,41 +17,41 @@ import lombok.AllArgsConstructor;
 public class DeveloperController {
 	@Autowired
 	private DeveloperRepository repository;
-	@GetMapping("/developers")
+	@GetMapping("/admin/developers")
 	public String getDevelopers(Model model) {
 		model.addAttribute("developers", repository.findAll());
 		return "developers";
 	}
 	
-	@GetMapping("/developers/new")
+	@GetMapping("/admin/developers/new")
 	public String newDeveloper(Model model) {
 		model.addAttribute("developer", new Developer());
 		return "new_developer";
 	}
 	
-	@PostMapping("/developers")
+	@PostMapping("/admin/developers")
 	public String createDeveloper(@ModelAttribute Developer developer) {
 		repository.save(developer);
-		return "redirect:/developers";
+		return "redirect:/admin/developers";
 	}
 	
-	@GetMapping("/developers/{id}/edit")
+	@GetMapping("/admin/developers/{id}/edit")
 	public String editDeveloper(@PathVariable Long id, Model model) {
 		Developer developer = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid developer id: " + id));
 		model.addAttribute("developer", developer);
 		return "edit_developer";
 	}
 	
-	@PostMapping("/developers/{id}")
+	@PostMapping("/admin/developers/{id}")
     public String updateDeveloper(@PathVariable Long id, @ModelAttribute Developer developer) {
         developer.setId(id);
         repository.save(developer);
-        return "redirect:/developers";
+        return "redirect:/admin/developers";
     }
 
-	@GetMapping("/developers/{id}/delete")
+	@GetMapping("/admin/developers/{id}/delete")
     public String deleteDeveloper(@PathVariable Long id) {
         repository.deleteById(id);
-        return "redirect:/developers";
+        return "redirect:/admin/developers";
     }
 }

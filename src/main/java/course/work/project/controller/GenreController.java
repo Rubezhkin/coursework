@@ -17,41 +17,41 @@ import lombok.AllArgsConstructor;
 public class GenreController {
 	@Autowired
 	private  GenreRepository repository;
-	@GetMapping("/genres")
+	@GetMapping("/admin/genres")
 	public String getGenres(Model model) {
 		model.addAttribute("genres", repository.findAll());
 		return "genres";
 	}
 	
-	@GetMapping("/genres/new")
+	@GetMapping("/admin/genres/new")
 	public String newGenre(Model model) {
 		model.addAttribute("genre", new Genre());
 		return "new_genre";
 	}
 	
-	@PostMapping("/genres")
+	@PostMapping("/admin/genres")
 	public String createGenre(@ModelAttribute Genre genre) {
 		repository.save(genre);
-		return "redirect:/genres";
+		return "redirect:/admin/genres";
 	}
 	
-	@GetMapping("/genres/{id}/edit")
+	@GetMapping("/admin/genres/{id}/edit")
 	public String editGenre(@PathVariable Long id, Model model) {
 		Genre genre = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid Genre id: " + id));
 		model.addAttribute("genre", genre);
 		return "edit_genre";
 	}
 	
-	@PostMapping("/genres/{id}")
+	@PostMapping("/admin/genres/{id}")
     public String updateGenre(@PathVariable Long id, @ModelAttribute Genre genre) {
         genre.setId(id);
         repository.save(genre);
-        return "redirect:/genres";
+        return "redirect:/admin/genres";
     }
 
-	@GetMapping("/genres/{id}/delete")
+	@GetMapping("/admin/genres/{id}/delete")
     public String deleteGenre(@PathVariable Long id) {
         repository.deleteById(id);
-        return "redirect:/genres";
+        return "redirect:/admin/genres";
     }
 }

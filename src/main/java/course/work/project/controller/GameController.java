@@ -70,6 +70,27 @@ public class GameController {
 		return "games";
 	}
 
+	@GetMapping("/admin/games")
+	public String getGamesAdmin(@RequestParam(required = false) Long developerId, @RequestParam(required = false) Long genreId, Model model) {
+		Iterable<Game> games = new ArrayList<>();
+    	if (developerId != null && genreId != null) {
+        	games = gameRepository.findByDeveloperIdAndGenreId(developerId, genreId);
+    	} 
+		else if (developerId != null) {
+        	games = gameRepository.findByDeveloperId(developerId);
+    	} 
+		else if (genreId != null) {
+        	games = gameRepository.findByGenreId(genreId);
+    	} 
+		else {
+        	games = gameRepository.findAll();
+    	}
+		model.addAttribute("games", games);
+		model.addAttribute("developers", developerRepository.findAll());
+		model.addAttribute("genres", genreRepository.findAll());
+		return "games_admin";
+	}
+
 	@GetMapping("/games/{id}")
 	public String getGame(@PathVariable Long id, Model model) {
 		Game game = gameRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid Game id: " + id));
@@ -93,7 +114,7 @@ public class GameController {
 	}
 	
 
-	@GetMapping("/games/new")
+	@GetMapping("/admin/games/new")
 	public String newGame(Model model) {
 		model.addAttribute("game", new Game());
 		model.addAttribute("developers", developerRepository.findAll());
@@ -101,7 +122,7 @@ public class GameController {
 		return "new_game";
 	}
 	
-	@PostMapping("/games")
+	@PostMapping("/admin/games")
 	public String createGame(@ModelAttribute Game game, @RequestParam("file") MultipartFile file) throws IOException {
 
 		Developer developer = developerRepository.findById(game.getDeveloper().getId())
@@ -121,10 +142,10 @@ public class GameController {
     	Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
     	game.setFileName(fileName);
     	gameRepository.save(game);
-		return "redirect:/games";
+		return "redirect:/admin/games";
 	}
 	
-	@GetMapping("/games/{id}/edit")
+	@GetMapping("/admin/games/{id}/edit")
 	public String editGame(@PathVariable Long id, Model model) {
 		Game game = gameRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid Game id: " + id));
 		model.addAttribute("game", game);
@@ -133,7 +154,7 @@ public class GameController {
 		return "edit_game";
 	}
 	
-	@PostMapping("/games/{id}")
+	@PostMapping("/admin/games/{id}")
     public String updateGame(@PathVariable Long id, @ModelAttribute Game game, @RequestParam("file") MultipartFile file) throws IOException {
         game.setId(id);
 		String prevGamePath = gameRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid Game id: " + id)).getFileName();
@@ -150,16 +171,16 @@ public class GameController {
 			game.setFileName(prevGamePath);
     	}
         gameRepository.save(game);
-        return "redirect:/games";
+        return "redirect:/admin/games";
     }
 
-	@GetMapping("/games/{id}/delete")
+	@GetMapping("/admin/games/{id}/delete")
     public String deleteGame(@PathVariable Long id) throws IOException {
 		String fileName = gameRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid Game id: " + id)).getFileName();
 		Path filePath = Paths.get(stringPath + "\\" + fileName);
         gameRepository.deleteById(id);
 		Files.delete(filePath);
-        return "redirect:/games";
+        return "redirect:/admin/games";
     }
 }
 

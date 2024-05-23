@@ -5,7 +5,7 @@
 </head>
 <body>
 <h1>Genres</h1>
-<a href="/genres/new">Create new genre</a>
+<a href="/admin/genres/new">Create new genre</a>
 <table>
     <tr>
         <th>Name</th>
@@ -14,8 +14,8 @@
     <tr th:each="genre : ${genres}">
         <td th:text="${genre.name}"></td>
         <td>
-            <a th:href="@{/genres/{id}/edit(id=${genre.id})}">Edit</a>
-            <a th:href="@{/genres/{id}/delete(id=${genre.id})}">Delete</a>
+            <a th:href="@{/admin/genres/{id}/edit(id=${genre.id})}">Edit</a>
+            <a th:href="@{/admin/genres/{id}/delete(id=${genre.id})}">Delete</a>
         </td>
     </tr>
 </table>

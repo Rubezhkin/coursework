@@ -5,7 +5,7 @@
 </head>
 <body>
 <h1>Create New Genre</h1>
-<form th:action="@{/genres}" th:object="${genre}" method="post">
+<form th:action="@{/admin/genres}" th:object="${genre}" method="post">
     <label for="name">Name:</label><br>
     <input type="text" id="name" th:field="*{name}"required><br>
     <input type="submit" value="Submit">

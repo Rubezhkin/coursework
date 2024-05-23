@@ -5,7 +5,7 @@
 </head>
 <body>
 <h1>Edit Game</h1>
-<form th:action="@{/games/{id}(id=${game.id})}" th:object="${game}" method="post" enctype="multipart/form-data">
+<form th:action="@{/admin/games/{id}(id=${game.id})}" th:object="${game}" method="post" enctype="multipart/form-data">
     <label for="name">Name:</label><br>
     <input type="text" id="name" th:field="*{name}"required><br>
     <label for="developer">Developer:</label><br>

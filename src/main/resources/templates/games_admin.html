@@ -5,6 +5,7 @@
 </head>
 <body>
 <h1>Games</h1>
+<a href="/admin/games/new">Create new game</a>
 <form th:action="@{/games}" method="get">
     <select name="developerId">
         <option value="">All Developers</option>
@@ -21,11 +22,16 @@
         <th>Name</th>
         <th>Developer</th>
         <th>Genre</th>
+        <th>Actions</th>
     </tr>
     <tr th:each="game : ${games}">
         <td><a th:href="@{/games/{id}(id=${game.id})}"th:text="${game.name}"></a></td>
         <td th:text="${game.developer.name}"></td>
         <td th:text="${game.genre.name}"></td>
+        <td>
+            <a th:href="@{/admin/games/{id}/edit(id=${game.id})}">Edit</a>
+            <a th:href="@{/admin/games/{id}/delete(id=${game.id})}">Delete</a>
+        </td>
     </tr>
 </table>
 </body>

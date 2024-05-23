@@ -5,7 +5,7 @@
 </head>
 <body>
 <h1>Developers</h1>
-<a href="/developers/new">Create new developer</a>
+<a href="/admin/developers/new">Create new developer</a>
 <table>
     <tr>
         <th>Name</th>
@@ -14,8 +14,8 @@
     <tr th:each="developer : ${developers}">
         <td th:text="${developer.name}"></td>
         <td>
-            <a th:href="@{/developers/{id}/edit(id=${developer.id})}">Edit</a>
-            <a th:href="@{/developers/{id}/delete(id=${developer.id})}">Delete</a>
+            <a th:href="@{/admin/developers/{id}/edit(id=${developer.id})}">Edit</a>
+            <a th:href="@{/admin/developers/{id}/delete(id=${developer.id})}">Delete</a>
         </td>
     </tr>
 </table>
