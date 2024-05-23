@@ -8,5 +8,6 @@
         Developer: <td th:text="${game.developer.name}"></td><br>
         Genre: <td th:text="${game.genre.name}"></td><br>
         Description: <td th:text="${game.description}"></td><br>
+        <a th:href="@{/games/{id}/download(id=${game.id})}">Download</a>
 </body>
 </html>

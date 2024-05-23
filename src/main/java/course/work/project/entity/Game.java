@@ -28,4 +28,6 @@ public class Game {
 	private Genre genre;
 
 	private String description;
+
+	private String fileName;
 }
