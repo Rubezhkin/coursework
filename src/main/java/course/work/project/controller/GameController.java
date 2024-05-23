@@ -18,6 +18,7 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -69,7 +70,7 @@ public class GameController {
 		model.addAttribute("genres", genreRepository.findAll());
 		return "games";
 	}
-
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/admin/games")
 	public String getGamesAdmin(@RequestParam(required = false) Long developerId, @RequestParam(required = false) Long genreId, Model model) {
 		Iterable<Game> games = new ArrayList<>();
@@ -113,7 +114,7 @@ public class GameController {
             .body(resource);
 	}
 	
-
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/admin/games/new")
 	public String newGame(Model model) {
 		model.addAttribute("game", new Game());
@@ -121,7 +122,7 @@ public class GameController {
 		model.addAttribute("genres", genreRepository.findAll());
 		return "new_game";
 	}
-	
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@PostMapping("/admin/games")
 	public String createGame(@ModelAttribute Game game, @RequestParam("file") MultipartFile file) throws IOException {
 
@@ -144,7 +145,7 @@ public class GameController {
     	gameRepository.save(game);
 		return "redirect:/admin/games";
 	}
-	
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/admin/games/{id}/edit")
 	public String editGame(@PathVariable Long id, Model model) {
 		Game game = gameRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid Game id: " + id));
@@ -153,7 +154,7 @@ public class GameController {
 		model.addAttribute("genres", genreRepository.findAll());
 		return "edit_game";
 	}
-	
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@PostMapping("/admin/games/{id}")
     public String updateGame(@PathVariable Long id, @ModelAttribute Game game, @RequestParam("file") MultipartFile file) throws IOException {
         game.setId(id);
@@ -173,7 +174,7 @@ public class GameController {
         gameRepository.save(game);
         return "redirect:/admin/games";
     }
-
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/admin/games/{id}/delete")
     public String deleteGame(@PathVariable Long id) throws IOException {
 		String fileName = gameRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid Game id: " + id)).getFileName();
