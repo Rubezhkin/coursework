@@ -4,6 +4,8 @@
     <title>Edit Developer</title>
 </head>
 <body>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/><br></form>
 <h1>Edit Developer</h1>
 <form th:action="@{/admin/developers/{id}(id=${developer.id})}" th:object="${developer}" method="post">
     <label for="name">Name:</label><br>

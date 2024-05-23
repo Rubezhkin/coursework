@@ -4,6 +4,8 @@
     <title>Developers</title>
 </head>
 <body>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/><br></form>
 <h1>Developers</h1>
 <a href="/admin/developers/new">Create new developer</a>
 <table>

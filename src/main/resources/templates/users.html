@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Users</title>
+</head>
+<body>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/><br></form>
+<h1>Users</h1> 
+<table>
+    <tr>
+        <th>Name</th>
+		<th>Roles</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.username}"></td>
+		<td><span th:text="${#strings.arrayJoin(user.roles.toArray(), ', ')}"></span></td>
+        <td>
+            <a th:href="@{/admin/users/{id}/edit(id=${user.id})}">Edit</a>
+            <a th:href="@{/admin/users/{id}/delete(id=${user.id})}">Delete</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

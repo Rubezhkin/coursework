@@ -4,6 +4,8 @@
     <title>Edit Game</title>
 </head>
 <body>
+	<form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/><br></form>
 <h1>Edit Game</h1>
 <form th:action="@{/admin/games/{id}(id=${game.id})}" th:object="${game}" method="post" enctype="multipart/form-data">
     <label for="name">Name:</label><br>

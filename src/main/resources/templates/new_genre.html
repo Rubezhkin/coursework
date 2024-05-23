@@ -4,6 +4,8 @@
     <title>New Genres</title>
 </head>
 <body>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/><br></form>
 <h1>Create New Genre</h1>
 <form th:action="@{/admin/genres}" th:object="${genre}" method="post">
     <label for="name">Name:</label><br>

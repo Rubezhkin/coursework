@@ -4,6 +4,8 @@
     <title>Games</title>
 </head>
 <body>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/><br></form>
 <h1>Games</h1>
 <form th:action="@{/games}" method="get">
     <select name="developerId">

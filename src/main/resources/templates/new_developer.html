@@ -4,6 +4,8 @@
     <title>New Developer</title>
 </head>
 <body>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/><br></form>
 <h1>Create New Developer</h1>
 <form th:action="@{/admin/developers}" th:object="${developer}" method="post">
     <label for="name">Name:</label><br>

@@ -4,6 +4,8 @@
     <title th:text="${game.name}"></title>
 </head>
 <body>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/><br></form>
 		Name: <td th:text="${game.name}"></td><br>
         Developer: <td th:text="${game.developer.name}"></td><br>
         Genre: <td th:text="${game.genre.name}"></td><br>
